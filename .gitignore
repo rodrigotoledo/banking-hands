@@ -4,7 +4,7 @@ node_modules/
 
 # Arquivos de log
 *.log
-
+data/
 # Arquivos de build
 build/
 dist/
