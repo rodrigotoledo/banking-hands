@@ -39,3 +39,5 @@ If you need import the postman configuration, in root of your application direct
 ## Author
 
 Rodrigo Toledo <rodrigo@rtoledo.inf.br>
+
+https://www.youtube.com/live/jYDrKY8PCGk?si=WEiO1SiG9a5JOJ6s
