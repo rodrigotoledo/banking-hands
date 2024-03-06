@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Transaction = require('../models/Transaction');
 
 // list users
 
@@ -30,7 +31,7 @@ router.post('/users', async (req, res) => {
 router.put('/users/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
-    const {name, accountNumber} = req.body;
+    const {name, accountNumber, balance} = req.body;
 
     const user = await User.findById(userId);
     if(!user) {
@@ -39,6 +40,7 @@ router.put('/users/:userId', async (req, res) => {
     
     user.name = name
     user.accountNumber = accountNumber;
+    user.balance += balance;
 
     await user.save();
 
@@ -47,5 +49,19 @@ router.put('/users/:userId', async (req, res) => {
     res.status(500).send({error: error.message});
   }
 })
+
+// transactons history
+
+router.get('/users/:userId/transactions', async (req, res) => {
+  try {
+      const transactions = await Transaction.find({receiver: req.params.userId})
+        .populate('sender')
+        .populate('receiver');
+      res.json(transactions)
+  } catch(error) {
+    res.status(500).json({error: error.message});
+  }
+})
+
 
 module.exports = router;
